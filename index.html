@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  
+   
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai+Looped&family=Playfair+Display:ital@1&family=Sarabun:wght@200&display=swap" rel="stylesheet">
+  
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai+Looped&family=Noto+Sans+Thai:wght@200&family=Playfair+Display:ital@1&family=Sarabun:wght@200&display=swap" rel="stylesheet">
+  
+  <style>
+   
+   sarabun  : { font-family: 'Sarabun', sans-serif; }
+   noto     :    { font-family: 'Noto Sans Thai', sans-serif; }
+   playFair : { font-family: 'Playfair Display', serif; }
+    
+  
+  body,* {
+    
+    font-family: 'Sarabun', sans-serif;
+    
+  } 
+  th { background: #008080 }
+  th,td { padding:8px; }
+  </style>
+  
+ </head>
+ <body >
+  <h2>EC2 AWS Config</h2>
+ <table border=1 class='sarabun'>
+ <tr>
+	<th>ลำดับ</th>
+	<th>ปัญหา</th>
+	<th>คำสั่ง</th>
+	<th>ตัวอย่าง ผลลัพท์</th>
+
+ </tr>
+ <tr>
+	<td colspan=10 style="font-family: 'Noto Sans Thai', sans-serif;color:#ff0080;font-weight:bold"><h4>ปัญหา 502 </h4>
+	หากคุณเห็น Error 502 Bad Gateway นั่นหมายความว่า เซิร์ฟเวอร์ตัวหนึ่งที่คุณกำลังพยายามเข้าถึง ทำหน้าที่เป็น "ประตูทางผ่าน" (Gateway) แต่ดันได้รับ สัญญาณตอบรับที่ผิดพลาด จากเซิร์ฟเวอร์อีกตัวหนึ่งที่อยู่เบื้องหลังครับ
+
+พูดง่ายๆ คือ เหมือนคุณสั่งอาหารผ่านพนักงานรับออเดอร์ (Gateway) แล้วพนักงานคนนั้นเดินเข้าไปในครัว แต่เชฟในครัวดันตอบอะไรที่ฟังไม่รู้เรื่องกลับมา พนักงานเลยเดินมาบอกคุณว่า "502: มีความผิดพลาดบางอย่างเกิดขึ้นข้างในครับ"
+	</td>	
+ </tr>
+
+ <tr>
+	<td>1</td>
+	<td>เชคว่าใครใช้ port 3000 อยู่</td>
+	<td>ss -tulnp | grep 3000</td>
+	<td>tcp   LISTEN 0      4096              0.0.0.0:3000       0.0.0.0:*    users:(("my-rust-website",pid=788409,fd=9))</td>
+
+ </tr>
+ <tr>
+	<td>2</td>
+	<td>ฆ่าตัวที่ใช้ port อยู่</td>
+	<td>sudo pkill rust_deriv_server</td>
+	<td></td>
+ </tr>
+ <tr>
+	<td>3</td>
+	<td>Bad gateway Error code 502</td>
+	<td>sudo nano /etc/cloudflared/config.yml</td>
+	<td><ol>
+	 <li>แก้ไข หมายเลข port ให้ตรงกับใน rust แล้ว Save </li>
+	 <li>sudo systemctl restart cloudflared </li>
+	 <li>sudo systemctl status cloudflared
+     </li>
+	 
+	</ol> 
+  </td>
+ </tr>
+ </table>
+
+ </body>
+</html>
+
